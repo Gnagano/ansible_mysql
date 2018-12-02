@@ -1,0 +1,6 @@
+---
+- name: install / install packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ mysql_basic_packages }}"

@@ -1,43 +1,8 @@
 ---
-- name: mysql / install packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ mysql_basic_packages }}"
+- include: install.yml         tags=mysql
 
-- name: install / Install required python packages for python3
-  pip:
-    executable: pip3
-    name:
-      - PyMySQL
-  ignore_errors: yes
+- include: python_packages.yml tags=mysql
 
-- name: install / Install required python packages for python2
-  pip:
-    executable:
-    name:
-      - MySQL-python
-      - PyMySQL
-  ignore_errors: yes
+- include: create_database.yml tags=mysql
 
-- name: mysql / create database
-  mysql_db:
-    name: "{{ mysql_database }}"
-    state: present
-
-- name: mysql / create user
-  mysql_user:
-    name: "{{ mysql_user }}"
-    host: "{{ mysql_host }}"
-    password: "{{ mysql_password }}"
-    priv: "{{ mysql_database }}.*:ALL"
-
-- command: mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
-  register: mysql_timezones_count
-  changed_when: false
-  check_mode: no
-
-- name: ensure timezone data is imported
-  shell: "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql"
-  when: mysql_timezones_count.stdout|int < 1
-  notify: restart mysql
+- include: timezone.yml        tags=mysql
