@@ -1,0 +1,15 @@
+---
+- name: python_packages / install packages for python3
+  pip:
+    executable: pip3
+    name:
+      - PyMySQL
+  ignore_errors: yes
+
+- name: python_packages / install packages for python2
+  pip:
+    executable:
+    name:
+      - MySQL-python
+      - PyMySQL
+  ignore_errors: yes

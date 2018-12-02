@@ -1,0 +1,29 @@
+---
+mysql_basic_packages:
+  - mysql-server
+  - mysql-client
+  - libmysqld-dev
+  - libmysqlclient-dev
+  - python-dev
+  - python-mysqldb
+  - python3-dev
+  - python3-mysqldb
+
+
+#database for main
+create_root:        'no' # yes or no
+root_user_name:     'master_user'
+root_user_password: 'master_password'
+root_user_host:     'localhost'
+
+#database for main
+mysql_user:     'main_user'
+mysql_password: 'main_password'
+mysql_database: 'main_database'
+mysql_host:     'localhost'
+
+#datbase for test
+mysql_test_user:     'test_user'
+mysql_test_password: 'test_password'
+mysql_test_database: 'test_database'
+mysql_test_host:     'localhost'

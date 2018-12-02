@@ -1,7 +1,15 @@
 Ansible role: install mysql server
 ===
 
-An ansible role to install mysql server and create a default database.
+### Overviews
+
+This roles build mysql server environment automatically.
+The details what the roles do are
+
+- install required packages
+- install mysql server
+- create new database and new user
+- create root user if you need
 
 ## Requirements
 
@@ -17,23 +25,37 @@ $ ansible_galaxy install gano2018.ansible_mysql --roles-path <your_roles_directo
 
 and set the role varibles described below.
 
-## Role Varibales
+## Usage
+
+Copy `defaults/main.yml.default` as `defaults/main.yml` and edit the role variables in main.yml.
+The details of role variables are described below.
+
+## Role Varibales you need to edit
 
 Those role variables are on `defaults/main.yml`.
 
-- mysql_database
 
-This is the variable for the user and the password of the default database.
+#### create_root
 
-- mysql_user
-- mysql_password
+If the value is `yes`, ansible craete root user. The default value is `no`
 
-This is the variable for the user and the password of the default database.
+#### root_user_name
 
-- mysql_host
+Name of root. You need to name execpt `root`. If the value of this variable is `root`, nothing happen.
 
-This is the variable for the host for mysql, default value is `localhost`
+#### root_user_password
+#### root_user_host
 
-- mysql_basic_packages
+As the name of the variables, please set the root password and host.
 
-This is the packages required for installation.
+#### mysql_database
+#### mysql_user
+#### mysql_password
+#### mysql_host
+#### mysql_test_database
+#### mysql_test_user
+#### mysql_test_password
+#### mysql_test_host
+
+You need to create two database, one is project's main database and the other is the database for test.
+Please specify the database name, access user name, password and host on these fields.
