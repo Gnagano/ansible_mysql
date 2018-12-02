@@ -1,0 +1,30 @@
+---
+- name: database_settings
+  mysql_db:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ mysql_database      }}"
+    - "{{ mysql_test_database }}"
+
+- name: database_settings / set root user
+  mysql_user:
+    name:     "{{ root_user_name }}"
+    host:     "{{ root_user_host }}"
+    password: "{{ root_user_password }}"
+    priv:     "*.*:ALL"
+  when: create_root == 'yes' and root_user_name != 'root'
+
+- name: database_settings / create user
+  mysql_user:
+    name:     "{{ mysql_user }}"
+    host:     "{{ mysql_host }}"
+    password: "{{ mysql_password }}"
+    priv:     "{{ mysql_database }}.*:ALL"
+
+- name: database_settings / create user for test database
+  mysql_user:
+    name:     "{{ mysql_test_user }}"
+    host:     "{{ mysql_test_host }}"
+    password: "{{ mysql_test_password }}"
+    priv:     "{{ mysql_test_database }}.*:ALL"

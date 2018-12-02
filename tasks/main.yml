@@ -1,8 +1,8 @@
 ---
-- include: install.yml         tags=mysql
+- include: install.yml           tags=mysql
 
-- include: python_packages.yml tags=mysql
+- include: python_packages.yml   tags=mysql
 
-- include: create_database.yml tags=mysql
+- include: database_settings.yml tags=mysql
 
-- include: timezone.yml        tags=mysql
+- include: timezone.yml          tags=mysql
